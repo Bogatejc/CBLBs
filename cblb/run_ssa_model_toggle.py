@@ -80,7 +80,7 @@ Y0[1] = 1 # L_B
 Y0[2] = 1 # a
 #Y0[3] = 0.1 # b
 
-T, Y = simulate_stochastic_toggle(params, Y0*Omega, Omega, 300)
+T, Y = simulate_stochastic_toggle(params, Y0, Omega, 500)
 
 
 L_A = Y[:,0]

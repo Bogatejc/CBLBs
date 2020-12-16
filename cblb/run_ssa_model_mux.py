@@ -61,7 +61,7 @@ params = [delta_L, gamma_L_X, n_y, theta_L_X, eta_x, omega_x, m_x, delta_x, rho_
 Omega = 10
 
 # I0, I1, I2, I3
-I = np.array([0, 1, 0, 0])
+I = np.array([0, 1, 0, 0]) * 100
 # S0, S1
 S = np.array([1, 0])
 
@@ -73,7 +73,7 @@ Y0[:4] = I
 Y0[4:6] = S
 
 
-T, Y = simulate_stochastic_mux(params, Y0*Omega, Omega, 100)
+T, Y = simulate_stochastic_mux(params, Y0, Omega, 100)
 
 out = Y[:,-1]
 #plt.plot(T,out)

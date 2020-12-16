@@ -29,9 +29,7 @@ def simulate_stochastic_clb(params, Y0, Omega, T_end, dt = 1):
                 rho_I0_a, rho_I0_b, rho_I1_a, rho_I1_b, rho_I2_a, rho_I2_b, rho_I3_a, rho_I3_b = 0, 0, 0, 0, 0, 0, 0, 0
             else:
                 rho_I0_a, rho_I0_b, rho_I1_a, rho_I1_b, rho_I2_a, rho_I2_b, rho_I3_a, rho_I3_b = 5, 0, 0, 5, 0, 0, 0, 0
-
             params[-8:] = rho_I0_a, rho_I0_b, rho_I1_a, rho_I1_b, rho_I2_a, rho_I2_b, rho_I3_a, rho_I3_b
-
             if t > T_end/2:
                 S = np.array([1, 0])
                 state[24:26] = S*Omega
@@ -93,7 +91,8 @@ Y0[22:24] = N_I3
 Y0[42:58] = 1 # number of cells
 
 
-# reaction space volume for a single cell
+# reaction space volume for the whole cell population
+# N_cells should be set to 1
 Omega = 10
 
 t_end = 500
@@ -137,8 +136,8 @@ for iteration, state in enumerate(states):
 
     if iteration:
         Y0 = Y_full[-1,:]        
-    else:
-        Y0 *= Omega
+    #else:
+    #    Y0 *= N_cells
 
     #print(Y0)
 
@@ -170,41 +169,6 @@ I0_a, I0_b = Y[:,2], Y[:,3]
 I1_a, I1_b = Y[:,8], Y[:,9]
 I2_a, I2_b = Y[:,14], Y[:,15]
 I3_a, I3_b = Y[:,20], Y[:,21]
-
-# plot
-"""
-ax1 = plt.subplot(241)
-ax1.plot(T, I0_a)
-ax1.plot(T, I0_b)
-ax1.legend(["I0_a = I0", "I0_b"])
-ax1.set_title('I0 toggle')
-
-ax2 = plt.subplot(242)
-ax2.plot(T, I1_a)
-ax2.plot(T, I1_b)
-ax2.legend(["I1_a = I1", "I1_b"])
-ax2.set_title('I1 toggle')
-
-ax3 = plt.subplot(243)
-ax3.plot(T, I2_a)
-ax3.plot(T, I2_b)
-ax3.legend(["I2_a = I2", "I2_b"])
-ax3.set_title('I2 toggle')
-
-ax4 = plt.subplot(244)
-ax4.plot(T, I3_a)
-ax4.plot(T, I3_b)
-ax4.legend(["I3_a = I3", "I3_b"])
-ax4.set_title('I3 toggle')
-
-ax5 = plt.subplot(212)
-ax5.plot(T,out)
-ax5.set_title('out')
-
-plt.suptitle(f"S = [{S[1]},{S[0]}]")
-plt.show()
-"""
-
 
 # plot
 
@@ -267,4 +231,4 @@ ax6.set_ylabel("Molecules")
 #plt.suptitle("$out = \\overline{S}_1 \\overline{S}_0 I_0 \\vee \\overline{S}_1 S_0 I_1 \\vee S_1 \\overline{S}_0 I_2 \\vee S_1 S_0 I_3$")
 plt.gcf().set_size_inches(15,10)
 #plt.savefig("figs\\CBLB_ssa.pdf", bbox_inches = 'tight')
-plt.show()  
+plt.show()

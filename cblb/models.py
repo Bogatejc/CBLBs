@@ -29,27 +29,27 @@ def not_cell_stochastic(state, params, Omega):
     # presume that the molecules are degraded in the same strain as they are produced
     N_Y = N_X
 
-    Omega *= N_X # reaction space volume is proportional to the number of cells
+    # Omega *= N_X # reaction space volume is proportional to the number of cells
 
     gamma_L_X *= Omega
     eta_x *= Omega
     theta_L_X /= Omega
     omega_x /= Omega
-    
 
     p = [0]*5
-    
-    #p[0] = N_X * gamma_L_X * (y ** n_y)/(1 + (theta_L_X*y)**n_y ) / Omega
-    p[0] = gamma_L_X * (y ** n_y)/(1 + (theta_L_X*y)**n_y ) / Omega # N_x already included in reaction space volume (Omega)
-    
-    #p[1] = N_X * delta_L * L_X 
-    p[1] = delta_L * L_X # N_x already included in reaction space volume (Omega)
 
-    #p[2] = N_X * (eta_x * (1/(1+ (omega_x*L_X)**m_x)))
-    p[2] = (eta_x * (1/(1+ (omega_x*L_X)**m_x))) # N_x already included in reaction space volume (Omega)
+    # print("Params = ", N_X, gamma_L_X, y, n_y, theta_L_X, Omega)
+    p[0] = N_X * gamma_L_X * (y ** n_y)/(1 + (theta_L_X*y)**n_y)/Omega
+    # p[0] = gamma_L_X * (y ** n_y)/(1 + (theta_L_X*y)**n_y ) / Omega # N_x already included in reaction space volume (Omega)
+    
+    p[1] = N_X * delta_L * L_X 
+    # p[1] = delta_L * L_X # N_x already included in reaction space volume (Omega)
 
-    #p[3] = N_Y * (delta_x * x)
-    p[3] = (delta_x * x) # N_y already included in reaction space volume (Omega)
+    p[2] = N_X * (eta_x * (1/(1+ (omega_x*L_X)**m_x)))
+    # p[2] = (eta_x * (1/(1+ (omega_x*L_X)**m_x))) # N_x already included in reaction space volume (Omega)
+
+    p[3] = N_Y * (delta_x * x)
+    # p[3] = (delta_x * x) # N_y already included in reaction space volume (Omega)
     
     p[4] = rho_x * x
 
@@ -64,7 +64,7 @@ def yes_cell(state, params):
     N_Y = N_X
 
 
-    dx_dt = N_X * gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y ) - N_Y * (delta_x * x) - rho_x * x
+    dx_dt = N_X * gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y) - N_Y * (delta_x * x) - rho_x * x
     
     return dx_dt
 
@@ -75,7 +75,7 @@ def yes_cell_stochastic(state, params, Omega):
     # presume that the molecules are degraded in the same strain as they are produced
     N_Y = N_X
 
-    Omega *= N_X # reaction space volume is proportional to the number of cells
+    # Omega *= N_X # reaction space volume is proportional to the number of cells
 
     gamma_x *= Omega
     theta_x /= Omega
@@ -83,11 +83,11 @@ def yes_cell_stochastic(state, params, Omega):
 
     p = [0]*3
 
-    #p[0] = N_X * gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y )
-    p[0] = gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y ) # N_x already included in reaction space volume (Omega)
+    p[0] = N_X * gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y)
+    # p[0] = gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y ) # N_x already included in reaction space volume (Omega)
     
-    #p[1] = N_Y * (delta_x * x) 
-    p[1] = delta_x * x # N_y already included in reaction space volume (Omega)
+    p[1] = N_Y * (delta_x * x) 
+    # p[1] = delta_x * x # N_y already included in reaction space volume (Omega)
 
     p[2] = rho_x * x
     
@@ -875,30 +875,24 @@ def MUX_4_1_model_stochastic(state, params, Omega):
     """
      I0
     """
-        
     # yes S0: I0_S0
     state_yes_I0_S0 = I0_out, S0, N_I0_S0, N_I0_S0
     p_I0_S0 = yes_cell_stochastic(state_yes_I0_S0, params_yes, Omega)
-    
 
     # yes S1: I0_S1
     state_yes_I0_S1 = I0_out, S1, N_I0_S1, N_I0_S1
     p_I0_S1 = yes_cell_stochastic(state_yes_I0_S1, params_yes, Omega)
-    
 
     # not I0: I0_I0
     state_not_I0_I0 = L_I0_I0, I0_out, I0, N_I0_I0, N_I0_I0
     p_I0_I0 = not_cell_stochastic(state_not_I0_I0, params_not, Omega)    
     
-    
     """
      I1
     """
-    
     # not S0: I1_S0
     state_not_I1_S0 = L_I1_S0, I1_out, S0, N_I1_S0, N_I1_S0
     p_I1_S0 = not_cell_stochastic(state_not_I1_S0, params_not, Omega)    
-    
     
     # yes S1: I1_S1
     state_yes_I1_S1 = I1_out, S1, N_I1_S1, N_I1_S1
@@ -908,43 +902,35 @@ def MUX_4_1_model_stochastic(state, params, Omega):
     state_not_I1_I1 = L_I1_I1, I1_out, I1, N_I1_I1, N_I1_I1
     p_I1_I1 = not_cell_stochastic(state_not_I1_I1, params_not, Omega)    
     
-
     """
     I2
     """
-    
     # yes S0: I2_S0
     state_yes_I2_S0 = I2_out, S0, N_I2_S0, N_I2_S0
     p_I2_S0 = yes_cell_stochastic(state_yes_I2_S0, params_yes, Omega)
     
-
     # not S1: I2_S1
     state_not_I2_S1 = L_I2_S1, I2_out, S1, N_I2_S1, N_I2_S1
     p_I2_S1= not_cell_stochastic(state_not_I2_S1, params_not, Omega)    
-    
     
     # not I2: I2_I2
     state_not_I2_I2 = L_I2_I2, I2_out, I2, N_I2_I2, N_I2_I2
     p_I2_I2 = not_cell_stochastic(state_not_I2_I2, params_not, Omega)    
        
-
     """
     I3
     """
     # not S0: I3_S0
     state_not_I3_S0 = L_I3_S0, I3_out, S0, N_I3_S0, N_I3_S0
     p_I3_S0 = not_cell_stochastic(state_not_I3_S0, params_not, Omega)    
-        
     
     # not S1: I3_S1
     state_not_I3_S1 = L_I3_S1, I3_out, S1, N_I3_S1, N_I3_S1
     p_I3_S1 = not_cell_stochastic(state_not_I3_S1, params_not, Omega)    
-       
 
     # not I3: I3_I3
     state_not_I3_I3 = L_I3_I3, I3_out, I3, N_I3_I3, N_I3_I3
     p_I3_I3 = not_cell_stochastic(state_not_I3_I3, params_not, Omega)    
-       
 
     """
     out
@@ -952,22 +938,18 @@ def MUX_4_1_model_stochastic(state, params, Omega):
     # not I0: I0
     state_not_I0 = L_I0, out, I0_out, N_I0, N_I0
     p_I0 = not_cell_stochastic(state_not_I0, params_not, Omega)    
-        
 
     # not I1: I1
     state_not_I1 = L_I1, out, I1_out, N_I1, N_I1
     p_I1 = not_cell_stochastic(state_not_I1, params_not, Omega)    
-    
 
     # not I2: I2
     state_not_I2 = L_I2, out, I2_out, N_I2, N_I2
     p_I2 = not_cell_stochastic(state_not_I2, params_not, Omega)    
-        
 
     # not I3: I3
     state_not_I3 = L_I3, out, I3_out, N_I3, N_I3
     p_I3 = not_cell_stochastic(state_not_I3, params_not, Omega)    
-       
     
     return (p_I0_S0 + p_I0_S1 + p_I0_I0 + 
            p_I1_S0 + p_I1_S1 + p_I1_I1 +
@@ -1073,7 +1055,6 @@ def CLB_model_stochastic(state, params, Omega):
     
     delta_L, gamma_L_X, n_y, theta_L_X, eta_x, omega_x, m_x, delta_x, delta_y, rho_x, rho_y, gamma_x, theta_x, r_X, r_Y, rho_I0_a, rho_I0_b, rho_I1_a, rho_I1_b, rho_I2_a, rho_I2_b, rho_I3_a, rho_I3_b = params
  
-  
     """
     latches
     """
@@ -1166,4 +1147,3 @@ def MUX_4_1_model_ODE(T, state, params):
 
 def CLB_model_ODE(T, state, params):
     return CLB_model(state, T, params)
-
