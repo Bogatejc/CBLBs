@@ -13,8 +13,6 @@ def not_cell(state, params):
 
     # presume that the molecules are degraded in the same strain as they are produced
     N_Y = N_X
-
-
     f = gamma_L_X * (y ** n_y)/(1 + (theta_L_X*y)**n_y )
     dL_X_dt = N_X * (f - delta_L * L_X)
 
@@ -38,11 +36,10 @@ def not_cell_stochastic(state, params, Omega):
 
     p = [0]*5
 
-    # print("Params = ", N_X, gamma_L_X, y, n_y, theta_L_X, Omega)
     p[0] = N_X * gamma_L_X * (y ** n_y)/(1 + (theta_L_X*y)**n_y)/Omega
     # p[0] = gamma_L_X * (y ** n_y)/(1 + (theta_L_X*y)**n_y ) / Omega # N_x already included in reaction space volume (Omega)
     
-    p[1] = N_X * delta_L * L_X 
+    p[1] = N_X * delta_L * L_X
     # p[1] = delta_L * L_X # N_x already included in reaction space volume (Omega)
 
     p[2] = N_X * (eta_x * (1/(1+ (omega_x*L_X)**m_x)))
@@ -62,8 +59,6 @@ def yes_cell(state, params):
 
     # presume that the molecules are degraded in the same strain as they are produced
     N_Y = N_X
-
-
     dx_dt = N_X * gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y) - N_Y * (delta_x * x) - rho_x * x
     
     return dx_dt
@@ -80,7 +75,6 @@ def yes_cell_stochastic(state, params, Omega):
     gamma_x *= Omega
     theta_x /= Omega
         
-
     p = [0]*3
 
     p[0] = N_X * gamma_x * (y ** n_y)/(1 + (theta_x*y)**n_y)
@@ -158,7 +152,7 @@ def toggle_generate_stoichiometry():
         # x axis ... species # Y = L_A, L_B, a, b, N_A, N_B
         # y axis ... reactions
         #
-        idx_L_A, idx_L_B, idx_a, idx_b, idx_N_A, idx_N_B = 0,1,2,3,4,5
+        idx_L_A, idx_L_B, idx_a, idx_b, idx_N_A, idx_N_B = 0, 1, 2, 3, 4, 5
 
         N = np.zeros((6, 10))
 
@@ -426,7 +420,7 @@ def MUX_4_1_generate_stoichiometry():
     out = 38
 
     #
-    # x axis ... species 
+    # x axis ... species
     # y axis ... reactions
     #
     N = np.zeros((39, 72))

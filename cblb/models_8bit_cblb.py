@@ -300,12 +300,12 @@ def MUX_8_1_model_ode(state, T, params):
     return dstate
 
 def MUX_8_1_generate_stoichiometry():
-    I0_out, I1_out, I2_out, I3_out, I4_out, I5_out, I6_out, I7_out = range(11,19)
-    L_I0_I0, L_I1_S2, L_I1_I1, L_I2_S1, L_I2_I2, L_I3_S1, L_I3_S2, L_I3_I3, L_I4_S0, L_I4_I4, L_I5_S0, L_I5_S2, L_I5_I5, L_I6_S0, L_I6_S1, L_I6_I6, L_I7_S0, L_I7_S1, L_I7_S2, L_I7_I7, L_I0, L_I1, L_I2, L_I3, L_I4, L_I5, L_I6, L_I7 = range(19,47)
+    I0_out, I1_out, I2_out, I3_out, I4_out, I5_out, I6_out, I7_out = range(11, 19)
+    L_I0_I0, L_I1_S2, L_I1_I1, L_I2_S1, L_I2_I2, L_I3_S1, L_I3_S2, L_I3_I3, L_I4_S0, L_I4_I4, L_I5_S0, L_I5_S2, L_I5_I5, L_I6_S0, L_I6_S1, L_I6_I6, L_I7_S0, L_I7_S1, L_I7_S2, L_I7_I7, L_I0, L_I1, L_I2, L_I3, L_I4, L_I5, L_I6, L_I7 = range(19, 47)
     out = 87
 
     #
-    # x axis ... species 
+    # x axis ... species
     # y axis ... reactions
     #
     N = np.zeros((88, 176))
@@ -380,7 +380,7 @@ def MUX_8_1_generate_stoichiometry():
     
     r += 1
     # reaction 11
-    # 0 --> I0_out     
+    # 0 --> I0_out
     N[I0_out, r] = 1
 
     r += 1
@@ -397,7 +397,7 @@ def MUX_8_1_generate_stoichiometry():
     """
     # yes S0: I1_S0
     """
-    r = 0
+    r += 1
     # reaction 14
     # 0 --> I1_out
     N[I1_out, r] = 1
@@ -701,7 +701,6 @@ def MUX_8_1_generate_stoichiometry():
     # 0 --> I4_out
     N[I4_out, r] = 1
 
-
     r += 1
     # reaction 67
     # I4_out --> 0
@@ -749,7 +748,7 @@ def MUX_8_1_generate_stoichiometry():
     N[I4_out, r] = -1
 
     """
-    # not I4: I4_I4 
+    # not I4: I4_I4
     """
     r += 1
     # reaction 75
@@ -763,7 +762,7 @@ def MUX_8_1_generate_stoichiometry():
     
     r += 1
     # reaction 77
-    # 0 --> I4_out     
+    # 0 --> I4_out
     N[I4_out, r] = 1
 
     r += 1
@@ -777,7 +776,7 @@ def MUX_8_1_generate_stoichiometry():
     N[I4_out, r] = -1
 
     ##################### I5
-    """ 
+    """
     # not S0: I5_S0
     """
     r += 1
@@ -840,7 +839,7 @@ def MUX_8_1_generate_stoichiometry():
     # reaction 90
     # 0 --> I5_out
     N[I5_out, r] = 1
-    
+
     r += 1
     # reaction 91
     # I5_out --> 0
@@ -863,10 +862,10 @@ def MUX_8_1_generate_stoichiometry():
     # reaction 94
     # L_I5_I5 --> 0
     N[L_I5_I5, r] = -1
-    
+  
     r += 1
     # reaction 95
-    # 0 --> I5_out     
+    # 0 --> I5_out
     N[I5_out, r] = 1
 
     r += 1
@@ -955,7 +954,7 @@ def MUX_8_1_generate_stoichiometry():
     N[I6_out, r] = -1
 
     """
-    # not I6: I6_I6 
+    # not I6: I6_I6
     """
     r += 1
     # reaction 111
@@ -969,7 +968,7 @@ def MUX_8_1_generate_stoichiometry():
     
     r += 1
     # reaction 113
-    # 0 --> I6_out     
+    # 0 --> I6_out
     N[I6_out, r] = 1
 
     r += 1
@@ -983,7 +982,7 @@ def MUX_8_1_generate_stoichiometry():
     N[I6_out, r] = -1
 
     ##################### I7
-    """ 
+    """
     # not S0: I7_S0
     """
     r += 1
@@ -1068,7 +1067,7 @@ def MUX_8_1_generate_stoichiometry():
     N[I7_out, r] = -1
 
     """
-    # not I7: I7_I7 
+    # not I7: I7_I7
     """
     r += 1
     # reaction 131
@@ -1079,10 +1078,10 @@ def MUX_8_1_generate_stoichiometry():
     # reaction 132
     # L_I7_I7 --> 0
     N[L_I7_I7, r] = -1
-    
+
     r += 1
     # reaction 133
-    # 0 --> I7_out     
+    # 0 --> I7_out
     N[I7_out, r] = 1
 
     r += 1
@@ -1208,7 +1207,7 @@ def MUX_8_1_generate_stoichiometry():
     # out --> 0
     N[out, r] = -1
 
-    """ 
+    """
     # not I4: I4
     """
     r += 1
@@ -1335,7 +1334,7 @@ def CLB_8_generate_stoichiometry():
 
     N_mux = MUX_8_1_generate_stoichiometry()
     # skip first eight rows (I0, I1, I2, I3, I4, I5, I6, I7)
-    N_mux = N_mux[8:,:]
+    N_mux = N_mux[8:, :]
 
     return merge_N(merge_N(merge_N(merge_N(merge_N(merge_N(merge_N(merge_N(N_toggle_I0, N_toggle_I1), N_toggle_I2), N_toggle_I3), N_toggle_I4), N_toggle_I5), N_toggle_I6), N_toggle_I7), N_mux)
 
@@ -1536,54 +1535,6 @@ def MUX_8_1_model_ssa(state, params, Omega):
     # not I7: I7
     state_not_I7 = L_I7, out, I7_out, N_I7, N_I7
     p_I7 = not_cell_stochastic(state_not_I7, params_not, Omega)
-    # if(np.sum(np.isnan(p_I0)) > 0):
-    #     print("==============")
-    #     print(L_I0, out, I0_out, N_I0, N_I0)
-    #     print(p_I0)
-    #     print("p_I0")
-    #     print("==============")
-    # if(np.sum(np.isnan(p_I1)) > 0):
-    #     print("==============")
-    #     print(L_I1, out, I1_out, N_I1, N_I1)
-    #     print(p_I1)
-    #     print("p_I1")
-    #     print("==============")
-    # if(np.sum(np.isnan(p_I2)) > 0):
-    #     print("==============")
-    #     print(L_I2, out, I2_out, N_I2, N_I2)
-    #     print(p_I2)
-    #     print("p_I2")
-    #     print("==============")
-    # if(np.sum(np.isnan(p_I3)) > 0):
-    #     print("==============")
-    #     print(L_I3, out, I3_out, N_I3, N_I3)
-    #     print(p_I3)
-    #     print("p_I3")
-    #     print("==============")
-    # if(np.sum(np.isnan(p_I4)) > 0):
-    #     print("==============")
-    #     print(L_I4, out, I4_out, N_I4, N_I4)
-    #     print(p_I4)
-    #     print("p_I4")
-    #     print("==============")
-    # if(np.sum(np.isnan(p_I5)) > 0):
-    #     print("==============")
-    #     print(L_I5, out, I5_out, N_I5, N_I5)
-    #     print(p_I5)
-    #     print("p_I5")
-    #     print("==============")
-    # if(np.sum(np.isnan(p_I6)) > 0):
-    #     print("==============")
-    #     print(L_I6, out, I6_out, N_I6, N_I6)
-    #     print(p_I6)
-    #     print("p_I6")
-    #     print("==============")
-    # if(np.sum(np.isnan(p_I7)) > 0):
-    #     print("==============")
-    #     print(L_I7, out, I7_out, N_I7, N_I7)
-    #     print(p_I7)
-    #     print("p_I7")
-    #     print("==============")
 
     return (p_I0_S0 + p_I0_S1 + p_I0_S2 + p_I0_I0 +
             p_I1_S0 + p_I1_S1 + p_I1_S2 + p_I1_I1 +
@@ -1610,8 +1561,8 @@ def CLB_model_MUX_8_1_ode(state, T, params):
     gamma_L_Y, theta_L_Y = gamma_L_X, theta_L_X
     n_x, m_y = n_y, m_x
     eta_y, omega_y = eta_x, omega_x
- 
-    params_toggle =  [delta_L, gamma_L_X, gamma_L_Y, n_x, n_y, theta_L_X, theta_L_Y, eta_x, eta_y, omega_x, omega_y, m_x, m_y, delta_x, delta_y, rho_x, rho_y, r_X, r_Y]
+
+    params_toggle = [delta_L, gamma_L_X, gamma_L_Y, n_x, n_y, theta_L_X, theta_L_Y, eta_x, eta_y, omega_x, omega_y, m_x, m_y, delta_x, delta_y, rho_x, rho_y, r_X, r_Y]
 
     # degradation rates for induction of switches are specific for each toggle switch    
     params_toggle_I0 = params_toggle.copy()
@@ -1702,7 +1653,7 @@ def CLB_model_MUX_8_1_ode(state, T, params):
     dstate = np.append(dstate_toggles, dstate_mux, axis = 0)
     return dstate
 
-def CLB_model_MUX_8_1_ssa(state, params, Omega):
+def CLB_8_model_stohastic(state, params, Omega):
     
     delta_L, gamma_L_X, n_y, theta_L_X, eta_x, omega_x, m_x, delta_x, delta_y, rho_x, rho_y, gamma_x, theta_x, r_X, r_Y, rho_I0_a, rho_I0_b, rho_I1_a, rho_I1_b, rho_I2_a, rho_I2_b, rho_I3_a, rho_I3_b, rho_I4_a, rho_I4_b, rho_I5_a, rho_I5_b, rho_I6_a, rho_I6_b, rho_I7_a, rho_I7_b = params
   

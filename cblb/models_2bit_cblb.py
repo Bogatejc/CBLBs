@@ -158,8 +158,8 @@ def MUX_2_1_generate_stoichiometry():
     out = state[38]
     """
     
-    I0_out, I1_out = range(3,5)
-    L_I0_I0, L_I1_S0, L_I1_I1, L_I0, L_I1 = range(5,10)
+    I0_out, I1_out = range(3, 5)
+    L_I0_I0, L_I1_S0, L_I1_I1, L_I0, L_I1 = range(5, 10)
     out = 16
 
     #
