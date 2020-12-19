@@ -1644,7 +1644,7 @@ def CLB_model_MUX_8_1_ode(state, T, params):
 
     ########
     # model
-    dstate_mux = MUX_8_1_model(state_mux, T, params_mux)
+    dstate_mux = MUX_8_1_model_ode(state_mux, T, params_mux)
     dstate_mux = dstate_mux[8:] # ignore dI0, dI1, dI2, dI3, dI4, dI5, dI6, dI7
 
     """
